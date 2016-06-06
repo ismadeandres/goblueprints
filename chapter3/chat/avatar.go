@@ -7,9 +7,9 @@ import (
 	"strings"
 )
 
-// ErrNoAvatar is the error that is returned when the
+// ErrNoAvatarURL is the error that is returned when the
 // Avatar instance is unable to provide an avatar URL.
-var ErrNoAvatarURL = errors.New("chat: Unable to get an avatar URL.")
+var ErrNoAvatarURL = errors.New("chat: Unable to get an avatar URL")
 
 // Avatar represents types capable of representing
 // user profile pictures.
@@ -45,7 +45,8 @@ func (FileSystemAvatar) GetAvatarURL(u ChatUser) (string, error) {
 		if file.IsDir() {
 			continue
 		}
-		if fname := file.Name(); u.UniqueID() == strings.TrimSuffix(fname, filepath.Ext(fname)) {
+		fname := file.Name()
+		if u.UniqueID() == strings.TrimSuffix(fname, filepath.Ext(fname)) {
 			return "/avatars/" + fname, nil
 		}
 	}
